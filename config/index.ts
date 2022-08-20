@@ -1,42 +1,59 @@
 import 'dotenv/config';
-import chalk from 'chalk';
-
-const red = chalk.bold.red;
-const green = chalk.green;
-const yellow = chalk.yellow;   
-const blue = chalk.blue;
 
 class Config {
-    port: number;
-    authURL: string;
-    authSecret: string|null;
-    authToken: string|null;
-    authTokenSecret: string|null;
-    accessEmail: string|null;
+    appKey: string|undefined;
+    appSecret: string|undefined;
+    accessToken: string|undefined;
+    accessEmail: string|undefined;
+    baseAuthUrl: string|undefined;
+
     constructor() {
-        this.port = Number(process.env.PORT) || 3000;
-        this.authURL = process.env.AUTH_URL || 'https://api.dropboxapi.com/oauth2/token';
-        this.authSecret = process.env.AUTH_SECRET || prompt(red('Enter your auth secret: '));
-        this.authToken = process.env.AUTH_TOKEN || prompt(red('Enter your auth token: '));
-        this.authTokenSecret = process.env.AUTH_TOKEN_SECRET || prompt(red('Enter your auth token secret: '));
-        this.accessEmail = process.env.ACCESS_EMAIL || prompt(red('Enter your access email: '));
+        this.appKey = process.env.APP_KEY;
+        this.appSecret = process.env.APP_SECRET;
+        this.accessToken = process.env.ACCESS_TOKEN;
+        this.accessEmail = process.env.ACCESS_EMAIL;
+        this.baseAuthUrl = process.env.BASE_AUTH_URL;
     }
 
-    getAuthURL(): string {
-        return this.authURL;
+    getAppKey(): string|undefined {
+        return this.appKey;
     }
-    getAuthSecret(): string|null {
-        return this.authSecret;
+    getAppSecret(): string|undefined {
+        return this.appSecret;
     }
-    getAuthToken(): string|null {
-        return this.authToken;
+    getAccessToken(): string|undefined {
+        return this.accessToken;
     }
-    getAuthTokenSecret(): string|null {
-        return this.authTokenSecret;
-    }
-    getAccessEmail(): string|null {
+    getAccessEmail(): string|undefined {
         return this.accessEmail;
+    }
+
+    getBaseAuthUrl(): string|undefined {
+        return this.baseAuthUrl;
+    }
+
+    setAppKey(appKey: string): void {
+        this.appKey = appKey;
+    }
+
+    setAppSecret(appSecret: string): void {
+        this.appSecret = appSecret;
+    }
+
+    setAccessToken(accessToken: string): void {
+        this.accessToken = accessToken;
+    }
+
+    setAccessEmail(accessEmail: string): void {
+        this.accessEmail = accessEmail;
+    }
+
+    setBaseAuthUrl(baseAuthUrl: string): void {
+        this.baseAuthUrl = baseAuthUrl;
     }
 }
 
-export default new Config();
+const config = new Config()
+
+//console.log(config)
+export default config;
